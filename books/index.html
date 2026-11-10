@@ -1,0 +1,14 @@
+---
+title: Books
+description: "Respected and Unwanted, and Waking the Driver: books by Daniel Frenkel."
+redirect_from: /books.html
+---
+<h1>Books</h1>
+
+{% for book in site.data.books -%}
+<article class="book" id="{{ book.slug }}">
+  <h2>{{ book.title }}</h2>
+  <p>{{ book.description }}</p>
+  <a class="btn btn-primary" href="{{ book.url }}">Read it<span class="visually-hidden">: {{ book.title }}</span></a>
+</article>
+{% endfor %}

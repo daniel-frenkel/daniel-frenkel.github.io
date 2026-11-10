@@ -1,0 +1,299 @@
+/* danielfrenkel.com
+   Same look as the book sites (respectedandunwanted.com, wakingthedriver.com):
+   Literata for headings and reading text, the system sans for small UI text,
+   the same paper background and brown accent. Light theme only. */
+
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(/assets/fonts/literata-latin-standard-normal.woff2) format('woff2-variations'), url(/assets/fonts/literata-latin-standard-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(/assets/fonts/literata-latin-standard-italic.woff2) format('woff2-variations'), url(/assets/fonts/literata-latin-standard-italic.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(/assets/fonts/literata-latin-ext-standard-normal.woff2) format('woff2-variations'), url(/assets/fonts/literata-latin-ext-standard-normal.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(/assets/fonts/literata-latin-ext-standard-italic.woff2) format('woff2-variations'), url(/assets/fonts/literata-latin-ext-standard-italic.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- tokens (values from the book sites) ---------- */
+
+:root {
+  color-scheme: light;
+  --bg: #fbf8f2;
+  --fg: #22201c;
+  --muted: #6c665c;
+  --rule: #e4ddcf;
+  --surface: #ffffff;
+  --accent: #8c4a24;
+  --accent-fg: #ffffff;
+  --focus: #1d6ae5;
+
+  --serif: 'Literata', 'Iowan Old Style', 'Palatino', Georgia, serif;
+  --ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, sans-serif;
+
+  --measure: 38rem;
+  --gutter: 20px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+@media (min-width: 700px) {
+  :root { --gutter: 32px; }
+}
+
+/* ---------- base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 18px/1.6 var(--serif);
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; color: var(--fg); }
+h1 { margin: 0 0 0.6em; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; }
+h2 { margin: 0 0 0.5em; font-size: 23px; line-height: 1.25; }
+h3 { margin: 0 0 0.4em; font-size: 19px; line-height: 1.3; }
+p { margin: 0 0 1em; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px; top: -100px;
+  z-index: 10;
+  padding: 10px 14px;
+  background: var(--surface);
+  color: var(--fg);
+  border-radius: 8px;
+  font: 600 15px/1.2 var(--ui);
+}
+.skip-link:focus { top: calc(var(--safe-top) + 8px); }
+
+/* ---------- page frame ---------- */
+
+.wrap {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding-left: max(var(--gutter), var(--safe-left));
+  padding-right: max(var(--gutter), var(--safe-right));
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: calc(var(--safe-top) + 12px) 0 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font: 600 18px/1.2 var(--serif);
+  color: var(--fg);
+  text-decoration: none;
+}
+.site-name:hover { color: var(--accent); }
+
+.site-nav { display: flex; gap: 4px; margin-left: auto; margin-right: -10px; }
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font: 600 15px/1 var(--ui);
+  color: var(--muted);
+  text-decoration: none;
+}
+.site-nav a:hover,
+.site-nav a.is-current { color: var(--accent); }
+
+main { padding: 36px 0 8px; }
+
+.site-footer {
+  margin-top: 64px;
+  padding: 20px 0 calc(var(--safe-bottom) + 36px);
+  border-top: 1px solid var(--rule);
+  font: 14px/1.5 var(--ui);
+  color: var(--muted);
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 0 20px; margin-bottom: 6px; }
+.site-footer nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); }
+.site-footer nav a:hover { color: var(--accent); }
+.site-footer p { margin: 0; }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--fg);
+  font: 600 15px/1.2 var(--ui);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.btn-primary:hover { background: #743c1c; border-color: #743c1c; }
+
+/* ---------- home ---------- */
+
+.hero { margin: 8px 0 40px; }
+.hero h1 { margin: 0 0 10px; font-size: 38px; line-height: 1.1; letter-spacing: -0.015em; }
+.tagline { margin: 0; font: italic 21px/1.45 var(--serif); color: var(--muted); }
+
+.home-section { margin: 0 0 44px; }
+.home-section > h2 { margin-bottom: 8px; }
+
+.book-links { list-style: none; margin: 0; padding: 0; }
+.book-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+  color: var(--fg);
+  text-decoration: none;
+  font: italic 600 19px/1.3 var(--serif);
+}
+.book-links li:last-child a { border-bottom: 1px solid var(--rule); }
+.book-links a::after { content: '→'; font: 600 17px/1 var(--ui); color: var(--accent); }
+.book-links a:hover { color: var(--accent); }
+
+.more { margin: 14px 0 0; font: 600 15px/1.4 var(--ui); }
+.more a { text-decoration: none; }
+.more a:hover { text-decoration: underline; }
+
+/* ---------- post lists ---------- */
+
+.post-list { list-style: none; margin: 0; padding: 0; }
+.post-list a {
+  display: block;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+  color: var(--fg);
+  text-decoration: none;
+}
+.post-list li:last-child a { border-bottom: 1px solid var(--rule); }
+.post-list-title { display: block; font: 600 19px/1.35 var(--serif); }
+.post-list a:hover .post-list-title { color: var(--accent); }
+.post-list time { display: block; margin-top: 4px; font: 14px/1.3 var(--ui); color: var(--muted); }
+
+.empty { color: var(--muted); font-style: italic; }
+
+/* ---------- books page ---------- */
+
+.lede { margin: -4px 0 32px; font: 15px/1.5 var(--ui); color: var(--muted); }
+
+.book { padding: 28px 0 32px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+.book h2 { font-size: 26px; font-style: italic; letter-spacing: -0.01em; }
+.book p { font-size: 18px; line-height: 1.6; margin-bottom: 20px; }
+
+/* ---------- a post ---------- */
+
+.post-header { margin: 0 0 28px; }
+.post-header h1 { margin-bottom: 8px; font-size: 32px; }
+.post-header time { font: 15px/1.3 var(--ui); color: var(--muted); }
+
+.prose { font-size: 19px; line-height: 1.65; }
+.prose p { margin: 0 0 1em; }
+.prose h2 { margin: 1.6em 0 0.5em; font-size: 24px; }
+.prose h3 { margin: 1.4em 0 0.4em; font-size: 20px; }
+.prose ul, .prose ol { margin: 0 0 1em; padding-left: 1.3em; }
+.prose li { margin: 0.3em 0; }
+.prose blockquote { margin: 1.4em 0; padding: 0 0 0 1em; border-left: 3px solid var(--rule); color: var(--muted); font-style: italic; }
+.prose hr { width: 40%; margin: 2em auto; border: 0; border-top: 1px solid var(--rule); }
+.prose img { display: block; max-width: 100%; height: auto; margin: 1.4em auto; border-radius: 8px; }
+.prose code { padding: 0.1em 0.3em; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); font: 0.85em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.prose pre { overflow-x: auto; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+.prose pre code { padding: 0; border: 0; }
+
+.back { margin: 32px 0 0; font: 600 15px/1.4 var(--ui); }
+.back a { text-decoration: none; }
+.back a:hover { text-decoration: underline; }
+
+/* ---------- subscribe box ---------- */
+
+.subscribe { margin: 48px 0 0; }
+.subscribe h2 { margin-bottom: 6px; }
+.subscribe p { margin: 0 0 14px; font: 15px/1.5 var(--ui); color: var(--muted); }
+.subscribe iframe {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: 320px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 480px) {
+  body { font-size: 17px; }
+  main { padding-top: 28px; }
+  h1 { font-size: 28px; }
+  .hero h1 { font-size: 34px; }
+  .tagline { font-size: 19px; }
+  .post-header h1 { font-size: 28px; }
+  .prose { font-size: 18px; }
+  .book h2 { font-size: 24px; }
+  .book p { font-size: 17px; }
+  .book .btn { display: flex; width: 100%; }
+}

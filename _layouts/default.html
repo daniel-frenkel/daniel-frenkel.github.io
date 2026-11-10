@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {%- if page.url == "/" %}
+  {%- assign full_title = site.title %}
+  {%- else %}
+  {%- assign full_title = page.title | append: " · " | append: site.title %}
+  {%- endif %}
+  {%- if page.description %}
+  {%- assign description = page.description %}
+  {%- elsif page.collection == "posts" %}
+  {%- assign description = page.excerpt | strip_html | normalize_whitespace | truncate: 160 %}
+  {%- else %}
+  {%- assign description = site.tagline %}
+  {%- endif %}
+  <title>{{ full_title | escape }}</title>
+  <meta name="description" content="{{ description | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbf8f2">
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ description | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="{% if page.collection == 'posts' %}article{% else %}website{% endif %}">
+  <link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%s' }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="site-header">
+      {%- unless page.url == "/" %}
+      <a class="site-name" href="/">{{ site.title }}</a>
+      {%- endunless %}
+      <nav class="site-nav" aria-label="Main">
+        <a href="/books/"{% if page.url == "/books/" %} class="is-current" aria-current="page"{% endif %}>Books</a>
+        <a href="/writing/"{% if page.url == "/writing/" %} class="is-current" aria-current="page"{% elsif page.collection == "posts" %} class="is-current"{% endif %}>Writing</a>
+      </nav>
+    </header>
+
+    <main id="main">
+{{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <nav aria-label="More">
+        <a href="/contact/">Contact</a>
+        <a href="/resources/">If things are heavy right now</a>
+      </nav>
+      <p>&copy; {{ site.time | date: "%Y" }} Daniel Frenkel</p>
+    </footer>
+  </div>
+</body>
+</html>

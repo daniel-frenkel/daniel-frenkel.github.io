@@ -1,72 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Daniel Frenkel</title>
-<meta name="description" content="Daniel Frenkel writes about the machinery of being a person — author of Waking the Driver and Respected and Unwanted.">
-<style>
-    :root { --bg:#F8F4EB; --ink:#2B2B28; --rust:#C0623B; --teal:#15907F; --gray:#6E6E66; }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:var(--bg); color:var(--ink); font-family:Georgia, 'Times New Roman', serif;
-           font-size:1.1rem; line-height:1.65; }
-    .wrap { max-width:41rem; margin:0 auto; padding:2.5rem 1.25rem 4rem; }
-    header { margin-bottom:3rem; }
-    .site-name { font-size:1.05rem; letter-spacing:0.16em; text-transform:uppercase;
-                 color:var(--ink); text-decoration:none; font-weight:bold; }
-    nav { margin-top:0.9rem; }
-    nav a { color:var(--gray); text-decoration:none; margin-right:1.1rem; font-size:0.92rem;
-            letter-spacing:0.08em; text-transform:uppercase; }
-    nav a:hover, nav a.here { color:var(--rust); }
-    h1 { font-size:2rem; line-height:1.2; margin-bottom:1.4rem; font-weight:normal; }
-    h2 { font-size:1.25rem; margin:2.4rem 0 0.8rem; font-weight:bold; }
-    p { margin-bottom:1.1rem; }
-    a { color:var(--teal); }
-    a:hover { color:var(--rust); }
-    .status { font-size:0.9rem; color:var(--gray); font-style:italic; }
-    .rule { border:none; border-top:1px solid #d9d2c0; margin:2.2rem 0; }
-    footer { margin-top:4rem; font-size:0.85rem; color:var(--gray); }
-    footer a { color:var(--gray); }
-    .quiet { color:var(--gray); font-style:italic; }
-    @media (max-width:480px){ body{font-size:1.02rem;} h1{font-size:1.6rem;} nav a{margin-right:0.8rem;} }
-</style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <a class="site-name" href="index.html">Daniel Frenkel</a>
-      <nav>
-      <a href="index.html" class="here">Home</a>
-      <a href="books.html">Books</a>
-      <a href="https://danielfrenkel.substack.com" target="_blank" rel="noopener">Writing</a>
-      <a href="resources.html">Resources</a>
-      <a href="contact.html">Contact</a>
-      </nav>
-    </header>
-    <main>
+---
+title: Daniel Frenkel
+---
+<section class="hero">
+  <h1>{{ site.title }}</h1>
+  <p class="tagline">{{ site.tagline }}</p>
+</section>
 
-      <h1>I write about the machinery of being a person.</h1>
-      <!-- DANIEL: everything on this site is a draft in your register. Edit freely; nothing is locked. -->
-      <p>Why you feel what you feel, do what you do, and repeat the pattern you understand
-      completely. The short version of everything I work on: you are run, most of the day,
-      by a prediction machine you didn't program &mdash; and the machine can be seen,
-      caught, and slowly retrained.</p>
-      <p>I'm writing two books about this. <a href="books.html"><em>Respected and
-      Unwanted</em></a> is about the rules men learn about what they may show, and what
-      following those rules costs them and everyone in reach of them. <a href="books.html"><em>Waking
-      the Driver</em></a> is about the automatic life &mdash; how the machine got programmed,
-      why insight alone never rewires it, and what actually does.</p>
-      <p>The living writing happens on
-      <a href="https://danielfrenkel.substack.com" target="_blank" rel="noopener">my newsletter</a>.
-      The books are where it all comes together.</p>
-      <p class="quiet">I'm also training as a counselor. One day this page will say more
-      about that.</p>
+<section class="home-section" aria-labelledby="books-heading">
+  <h2 id="books-heading">Books</h2>
+  <ul class="book-links">
+    {%- for book in site.data.books %}
+    <li><a href="/books/#{{ book.slug }}">{{ book.title }}</a></li>
+    {%- endfor %}
+  </ul>
+</section>
 
-    </main>
-    <footer>
-      <hr class="rule">
-      <p>&copy; Daniel Frenkel &middot; <a href="resources.html">If things are heavy right now</a></p>
-    </footer>
-  </div>
-</body>
-</html>
+<section class="home-section" aria-labelledby="writing-heading">
+  <h2 id="writing-heading">Writing</h2>
+  {%- if site.posts.size > 0 %}
+  <ul class="post-list">
+    {%- for post in site.posts limit: 3 %}
+    <li><a href="{{ post.url }}"><span class="post-list-title">{{ post.title }}</span><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></a></li>
+    {%- endfor %}
+  </ul>
+  <p class="more"><a href="/writing/">All writing &rarr;</a></p>
+  {%- else %}
+  <p class="empty">New posts will appear here.</p>
+  {%- endif %}
+</section>
+
+{% include subscribe.html %}

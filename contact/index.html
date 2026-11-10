@@ -1,0 +1,20 @@
+---
+title: Contact
+description: "How to reach Daniel Frenkel."
+redirect_from: /contact.html
+---
+<h1>Contact</h1>
+<p>Reader mail is welcome, and I read all of it. So are notes from agents, editors,
+podcasters, and anyone who found something here worth arguing with.</p>
+<p><strong>Email:</strong> <span id="em"><noscript>contact [at] danielfrenkel [dot] com</noscript></span></p>
+<script>
+  (function () {
+    var a = ['contact', 'danielfrenkel.com'].join('@');
+    var s = document.getElementById('em');
+    var l = document.createElement('a');
+    l.href = 'mailto:' + a;
+    l.textContent = a;
+    s.textContent = '';
+    s.appendChild(l);
+  })();
+</script>

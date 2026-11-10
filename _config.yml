@@ -1,0 +1,47 @@
+# Site settings. GitHub Pages rebuilds the site whenever this repo changes.
+
+title: Daniel Frenkel
+url: "https://danielfrenkel.com"
+
+# The line under your name on the home page (also the site's search description).
+tagline: "I write about why we feel what we feel, do what we do, and repeat the patterns we already understand."
+
+# Your Substack. The subscribe box on the home page and under every post uses it.
+substack_url: "https://theothergauge.substack.com"
+
+# Posts live in _posts/ and get addresses like danielfrenkel.com/writing/my-post-title/
+permalink: /writing/:title/
+
+# No GitHub Pages theme: the site's own layouts and stylesheet are the whole design.
+theme: null
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-redirect-from
+
+# Old addresses (/books.html etc.) redirect via each page's redirect_from.
+redirect_from:
+  json: false
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

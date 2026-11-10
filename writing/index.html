@@ -1,0 +1,15 @@
+---
+title: Writing
+description: "Writing by Daniel Frenkel, newest first."
+---
+<h1>Writing</h1>
+
+{% if site.posts.size > 0 -%}
+<ul class="post-list">
+  {%- for post in site.posts %}
+  <li><a href="{{ post.url }}"><span class="post-list-title">{{ post.title }}</span><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></a></li>
+  {%- endfor %}
+</ul>
+{%- else -%}
+<p class="empty">New posts will appear here.</p>
+{%- endif %}

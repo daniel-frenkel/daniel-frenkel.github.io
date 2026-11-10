@@ -1,79 +1,77 @@
-# danielfrenkel.com — deploy checklist
+# danielfrenkel.com
 
-Static site for GitHub Pages. Repo: https://github.com/daniel-frenkel/danielfrenkel.github.io
+Daniel Frenkel's author site. GitHub Pages builds it with Jekyll from the `main`
+branch and serves it at danielfrenkel.com (see `CNAME`). There is nothing to install
+and no build step to run: commit a change, and the site updates a minute or two later.
 
-## One naming fix (recommended, 30 seconds)
+## Add a post
 
-Your GitHub username is `daniel-frenkel` (with a hyphen), so the special "user site" repo
-name is **`daniel-frenkel.github.io`** — the repo you created (`danielfrenkel.github.io`)
-doesn't match, which makes it an ordinary project repo. Everything still works with the
-custom domain either way, but the rename is cleaner:
+1. In the repo on GitHub, go into the **`_posts`** folder and choose
+   **Add file → Create new file** (or upload a `.md` file you wrote elsewhere).
+2. Name the file with the date first, then a short slug:
 
-- Repo → Settings → General → Repository name → change to `daniel-frenkel.github.io` → Rename.
+   ```
+   2026-11-14-the-drive-home.md
+   ```
 
-If you skip the rename, just make sure Pages is enabled (step 2) — the custom domain does
-the rest.
+   The date in the name is the post's date. The slug becomes its address:
+   `danielfrenkel.com/writing/the-drive-home/`.
+3. Start the file with a title block, then write the post in Markdown:
 
-## 1. Upload the site (no git client needed)
+   ```markdown
+   ---
+   title: The Drive Home
+   ---
 
-In the repo: **Add file → Upload files** → drag in all six files
-(`index.html`, `books.html`, `resources.html`, `contact.html`, `CNAME`, this `README.md`)
-→ Commit changes to `main`.
+   First paragraph of the post.
 
-## 2. Turn on Pages
+   ## A subheading
 
-Repo → Settings → Pages:
-- Source: **Deploy from a branch** → Branch: `main`, folder `/ (root)` → Save.
-- Custom domain: enter `danielfrenkel.com` → Save.
-- Check **Enforce HTTPS** once it becomes available (after DNS propagates — minutes to a
-  few hours).
+   More text. *Italics*, **bold**, [links](https://example.com) and
+   > block quotes all work.
+   ```
 
-## 3. Namecheap DNS (Domain List → danielfrenkel.com → Advanced DNS)
+   Optional: add `description: One sentence for search results and link previews.`
+   under the title. Without it, the post's first paragraph is used.
+4. Commit. The post shows up on the Writing page (newest first) and in the
+   three latest on the home page, with the subscribe box at the end of it.
 
-Delete the parking records, then add:
+Notes:
 
-| Type  | Host | Value                      |
-|-------|------|----------------------------|
-| A     | @    | 185.199.108.153            |
-| A     | @    | 185.199.109.153            |
-| A     | @    | 185.199.110.153            |
-| A     | @    | 185.199.111.153            |
-| CNAME | www  | daniel-frenkel.github.io   |
+- The folder must be called `_posts`, with the underscore. Jekyll only treats
+  files there as posts.
+- A post dated in the future stays hidden until that date has passed **and** the
+  site is rebuilt by a later commit.
+- To take a post down, delete its file.
 
-Note the CNAME value uses your **username** (`daniel-frenkel.github.io`), not the repo
-name — that's correct either way.
+## Change other things
 
-## 4. Free email — no fee, ever
+| What                                  | Where                                       |
+|---------------------------------------|---------------------------------------------|
+| The line under your name (home page)  | `tagline` in `_config.yml`                  |
+| Substack address for the subscribe box | `substack_url` in `_config.yml`            |
+| Book titles, descriptions, links, order | `_data/books.yml`                         |
+| Contact page                          | `contact/index.html`                        |
+| Crisis-lines page                     | `resources/index.html`                      |
+| Colors, fonts, spacing                | `assets/css/site.css`                       |
+| Header and footer on every page       | `_layouts/default.html`                     |
+| Subscribe box                         | `_includes/subscribe.html`                  |
 
-This is forwarding, not a mailbox, and Namecheap includes it free:
+## What the site loads
 
-- Domain List → danielfrenkel.com → **Redirect Email** (or Advanced DNS → Mail Settings →
-  **Email Forwarding**).
-- Add: `contact` → forwards to → `danielfrenkel@gmail.com`.
-- Namecheap sets the needed MX records automatically when you choose Email Forwarding.
-  Don't add MX records by hand, and don't delete the ones it creates.
+Everything is served from this repo, including the Literata font
+(`assets/fonts`, SIL Open Font License, see `OFL.txt`). There are no analytics,
+trackers, cookies or font services. The only outside service is Substack's
+subscribe box (an embedded frame from the Substack address above).
 
-Mail to contact@danielfrenkel.com now lands in your Gmail. You reply from your Gmail
-address, which is fine for reader mail. If you ever want replies to come *from* the
-domain, Namecheap Private Email is about $12/year — a later decision, not a monthly fee,
-and not needed now.
+## Hosting
 
-## 5. Before or after deploying — your pass
-
-- All site copy is my draft in your register: edit anything, especially the home-page
-  bio lines.
-- The Writing link points to `https://danielfrenkel.substack.com` in all four pages —
-  correct it if your Substack address differs (find-and-replace across the files).
-- The contact address on the page is assembled by a small script so scrapers reading the
-  raw HTML don't harvest it; the `<noscript>` fallback shows it spelled out.
-
-## Later, if contact volume ever justifies a real form
-
-Formspree or Web3Forms: one HTML `<form>` block pasted into `contact.html`, posting to
-their endpoint — they filter spam and email you submissions. No rebuild, no backend.
-Not worth the dependency until the mail volume exists.
-
-## Ch12 P.S.
-
-Once this is live, the manuscript placeholder can read: **danielfrenkel.com** — readers
-will find the contact address there.
+- Repo → Settings → Pages: deploy from branch `main`, folder `/ (root)`;
+  custom domain `danielfrenkel.com`, **Enforce HTTPS** on.
+- DNS at Namecheap: four `A` records for `@` (185.199.108.153, 185.199.109.153,
+  185.199.110.153, 185.199.111.153) and a `CNAME` for `www` →
+  `daniel-frenkel.github.io`.
+- Mail to contact@danielfrenkel.com is forwarded by Namecheap's free email
+  forwarding.
+- The old addresses `/books.html`, `/contact.html` and `/resources.html`
+  redirect to the new pages.
