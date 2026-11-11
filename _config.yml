@@ -9,6 +9,12 @@ tagline: "I write about why we feel what we feel, do what we do, and repeat the 
 # Your Substack. The subscribe box on the home page and under every post uses it.
 substack_url: "https://theothergauge.substack.com"
 
+# How the subscribe box looks:
+#   embed  = Substack's own sign-up box (an embedded frame that runs Substack's code)
+#   button = a short note and a Subscribe button that opens your Substack sign-up
+#            page; nothing from Substack loads on this site
+subscribe_style: embed
+
 # Posts live in _posts/ and get addresses like danielfrenkel.com/writing/my-post-title/
 permalink: /writing/:title/
 

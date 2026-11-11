@@ -50,6 +50,7 @@ Notes:
 |---------------------------------------|---------------------------------------------|
 | The line under your name (home page)  | `tagline` in `_config.yml`                  |
 | Substack address for the subscribe box | `substack_url` in `_config.yml`            |
+| Subscribe box: Substack's box or a plain button | `subscribe_style` in `_config.yml` (`embed` or `button`) |
 | Book titles, descriptions, links, order | `_data/books.yml`                         |
 | Contact page                          | `contact/index.html`                        |
 | Crisis-lines page                     | `resources/index.html`                      |
@@ -61,8 +62,14 @@ Notes:
 
 Everything is served from this repo, including the Literata font
 (`assets/fonts`, SIL Open Font License, see `OFL.txt`). There are no analytics,
-trackers, cookies or font services. The only outside service is Substack's
-subscribe box (an embedded frame from the Substack address above).
+trackers, cookies or font services of its own. The only outside service is the
+subscribe box, and what it loads depends on `subscribe_style`:
+
+- `embed`: Substack's own sign-up box, in a frame. Substack's code runs in it,
+  and in testing it also loaded Google's tag-manager and ad tags, Cloudflare
+  Insights, Datadog and Sentry.
+- `button`: a heading, one line and a Subscribe button that opens the Substack
+  sign-up page. Nothing from Substack loads until a reader taps it.
 
 ## Hosting
 

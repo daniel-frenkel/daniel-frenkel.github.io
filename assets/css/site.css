@@ -283,6 +283,16 @@ main { padding: 36px 0 8px; }
   background: var(--surface);
 }
 
+/* button version (subscribe_style: button in _config.yml) */
+.subscribe-card {
+  padding: 24px 24px 26px;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.subscribe-card p { margin-bottom: 18px; }
+.subscribe-card .btn { min-width: 160px; }
+
 /* ---------- phones ---------- */
 
 @media (max-width: 480px) {
@@ -296,4 +306,6 @@ main { padding: 36px 0 8px; }
   .book h2 { font-size: 24px; }
   .book p { font-size: 17px; }
   .book .btn { display: flex; width: 100%; }
+  .subscribe-card { padding: 20px 16px 22px; }
+  .subscribe-card .btn { display: flex; width: 100%; }
 }

@@ -1,5 +1,13 @@
+{%- if site.subscribe_style == "button" -%}
+<section class="subscribe subscribe-card" aria-labelledby="subscribe-heading">
+  <h2 id="subscribe-heading">Get new posts by email</h2>
+  <p>Sign up on Substack. Unsubscribe anytime.</p>
+  <a class="btn btn-primary" href="{{ site.substack_url }}/subscribe">Subscribe</a>
+</section>
+{%- else -%}
 <section class="subscribe" aria-labelledby="subscribe-heading">
   <h2 id="subscribe-heading">Get new posts by email</h2>
   <p>Sent through Substack. Unsubscribe anytime.</p>
   <iframe src="{{ site.substack_url }}/embed" title="Subscribe on Substack" width="480" height="320" loading="lazy" frameborder="0" scrolling="no"></iframe>
 </section>
+{%- endif %}
